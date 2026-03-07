@@ -1,4 +1,4 @@
-import { Linkedin, Twitter, Mail } from 'lucide-react';
+import { Linkedin, Twitter, Mail, Instagram } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -14,9 +14,36 @@ export default function Footer() {
               Human-grade AI communication for modern businesses.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="text-zinc-400 hover:text-white transition-colors"><Linkedin size={20} /></a>
-              <a href="#" className="text-zinc-400 hover:text-white transition-colors"><Twitter size={20} /></a>
-              <a href="#" className="text-zinc-400 hover:text-white transition-colors"><Mail size={20} /></a>
+              <a 
+                href="https://www.linkedin.com/company/vocalify-ai/about/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-zinc-400 hover:text-white transition-colors"
+                aria-label="LinkedIn"
+              >
+                <Linkedin size={20} />
+              </a>
+              <a 
+                href="#" 
+                className="text-zinc-400 hover:text-white transition-colors"
+                aria-label="Twitter"
+              >
+                <Twitter size={20} />
+              </a>
+              <a 
+                href="#" 
+                className="text-zinc-400 hover:text-white transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram size={20} />
+              </a>
+              <a 
+                href="mailto:contact@vocalify.ai" 
+                className="text-zinc-400 hover:text-white transition-colors"
+                aria-label="Email"
+              >
+                <Mail size={20} />
+              </a>
             </div>
           </div>
 
