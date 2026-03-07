@@ -37,12 +37,12 @@ export default function Hero() {
             >
               Book a Demo <ArrowRight className="w-4 h-4" />
             </button>
-            <button 
-              onClick={openBookDemo}
+            <a 
+              href="#pricing"
               className="bg-transparent border border-white/10 text-white px-8 py-4 rounded-full font-semibold text-base hover:bg-white/5 transition-colors flex items-center justify-center gap-2"
             >
               <Play className="w-4 h-4 fill-current" /> View Pricing
-            </button>
+            </a>
           </div>
 
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
