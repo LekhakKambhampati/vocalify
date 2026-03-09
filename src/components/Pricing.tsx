@@ -1,3 +1,4 @@
+import React from 'react';
 import { Check } from 'lucide-react';
 import { useModal } from '../context/ModalContext';
 
@@ -25,30 +26,30 @@ export default function Pricing() {
 
             {/* Rows */}
             {[
-              { feature: "WhatsApp Agent Setup", starter: "₹10,000 (One-time)", enterprise: "Custom" },
-              { feature: "Voice Agent Setup", starter: "₹20,000 (One-time)", enterprise: "Custom" },
-              { feature: "Annual Platform Fee", starter: "₹7,000 (From Year 2)", enterprise: "Included" },
+              { feature: "WhatsApp Agent Setup", starter: "-", enterprise: "-" },
+              { feature: "Voice Agent Setup", starter: "-", enterprise: "-" },
+              { feature: "Annual Platform Fee", starter: "-", enterprise: "-" },
               { feature: "Usage Rate", starter: "₹9/min (Pay-as-you-go)", enterprise: "Volume Discounts" },
               { feature: "WhatsApp Meta Charges", starter: "At Actuals*", enterprise: "At Actuals*" },
               { feature: "Integrations", starter: "Webhooks & Basic CRM", enterprise: "Full API & Custom ERP" },
               { feature: "Concurrent Calls", starter: "Up to 10", enterprise: "Unlimited" },
               { feature: "Support", starter: "Email + Chat", enterprise: "Dedicated Account Manager" },
             ].map((row, i) => (
-              <>
-                <div key={`f-${i}`} className="p-4 md:p-6 text-zinc-400 text-sm border-b border-white/5 flex items-center bg-[#0a0a0f]/50">
+              <React.Fragment key={i}>
+                <div className="p-4 md:p-6 text-zinc-400 text-sm border-b border-white/5 flex items-center bg-[#0a0a0f]/50">
                   {row.feature}
                 </div>
-                <div key={`s-${i}`} className="p-4 md:p-6 text-white text-sm border-b border-white/5 border-l border-r border-white/5 flex items-center bg-[#0a0a0f]/30">
+                <div className="p-4 md:p-6 text-white text-sm border-b border-white/5 border-l border-r border-white/5 flex items-center bg-[#0a0a0f]/30">
                   {row.starter}
                 </div>
-                <div key={`e-${i}`} className="p-4 md:p-6 text-white text-sm border-b border-white/5 border-purple-500/10 flex items-center font-medium bg-purple-900/5">
+                <div className="p-4 md:p-6 text-white text-sm border-b border-white/5 border-purple-500/10 flex items-center font-medium bg-purple-900/5">
                   {row.enterprise === "Unlimited" ? (
                     <span className="text-cyan-400 font-bold flex items-center gap-2">
                        Unlimited <Check className="w-4 h-4" />
                     </span>
                   ) : row.enterprise}
                 </div>
-              </>
+              </React.Fragment>
             ))}
             
             {/* CTA Row */}

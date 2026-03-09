@@ -4,9 +4,32 @@ import { MessageSquare, X, Send, Sparkles, Loader2 } from 'lucide-react';
 import { GoogleGenAI } from "@google/genai";
 
 // Initialize Gemini API
-// Note: In a real production app, you might want to proxy this through a backend to rate limit,
-// but for this demo/preview, client-side is acceptable as per instructions.
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+// We'll initialize this dynamically when needed to ensure we have the latest key
+let ai: GoogleGenAI | null = null;
+
+// Helper to get or initialize the AI instance
+const getAI = async () => {
+  if (ai) return ai;
+  
+  // Check if we have a key in env first (dev mode)
+  let apiKey = process.env.API_KEY || process.env.GEMINI_API_KEY;
+  
+  // If not, check if the user has selected one via the platform UI
+  if (!apiKey && window.aistudio && window.aistudio.hasSelectedApiKey) {
+    const hasKey = await window.aistudio.hasSelectedApiKey();
+    if (!hasKey && window.aistudio.openSelectKey) {
+      await window.aistudio.openSelectKey();
+      apiKey = process.env.API_KEY; 
+    }
+  }
+
+  if (!apiKey) {
+    throw new Error("API Key not found. Please select an API key to continue.");
+  }
+
+  ai = new GoogleGenAI({ apiKey });
+  return ai;
+};
 
 const SYSTEM_PROMPT = `
 You are the AI Assistant for Vocalify, an enterprise AI Voice & WhatsApp Automation platform for Indian businesses.
@@ -20,7 +43,8 @@ Key Product Details:
   - Handles interruptions naturally. Context-aware.
 - **WhatsApp Features**: Green tick verification, interactive flows, broadcasting (90% open rates), Razorpay integration.
 - **Pricing**: 
-  - Starter: ₹25,000 setup + ₹15,000/yr platform fee. Usage: ₹9/min for voice.
+  - Setup and Platform fees: Currently being finalized (custom pricing based on requirements).
+  - Usage: ₹9/min for voice.
   - Enterprise: Custom pricing, unlimited concurrent calls, dedicated account manager.
   - Meta charges are at actuals (transparent billing).
 - **Trust**: Used by 500+ businesses like Razorpay, Zoho, etc.
@@ -75,13 +99,15 @@ export default function ChatWidget() {
     setIsLoading(true);
 
     try {
+      const aiInstance = await getAI();
+      
       // Prepare history for the model
       const history = messages.map(m => ({
         role: m.role === 'assistant' ? 'model' : 'user',
         parts: [{ text: m.text }]
       }));
 
-      const chat = ai.chats.create({
+      const chat = aiInstance.chats.create({
         model: "gemini-3-flash-preview",
         config: {
           systemInstruction: SYSTEM_PROMPT,

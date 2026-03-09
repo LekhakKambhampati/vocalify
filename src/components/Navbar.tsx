@@ -33,17 +33,22 @@ export default function Navbar() {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
           {[
-            { name: 'Voice Agents', href: '#voice-agents' },
-            { name: 'WhatsApp Agents', href: '#whatsapp-agents' },
-            { name: 'Pricing', href: '#pricing' }
+            { name: 'Voice Agents', href: '/#voice-agents' },
+            { name: 'WhatsApp Agents', href: '/#whatsapp-agents' },
+            { name: 'Pricing', href: '/#pricing' },
+            { name: 'Live Demo', href: '/demo' }
           ].map((item) => (
             <a
               key={item.name}
               href={item.href}
-              className="text-sm font-medium text-zinc-300 hover:text-white transition-colors relative group"
+              className={`text-sm font-medium transition-colors relative group ${
+                item.name === 'Live Demo' ? 'text-indigo-400 hover:text-indigo-300' : 'text-zinc-300 hover:text-white'
+              }`}
             >
               {item.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-500 transition-all group-hover:w-full" />
+              <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full ${
+                item.name === 'Live Demo' ? 'bg-indigo-400' : 'bg-indigo-500'
+              }`} />
             </a>
           ))}
         </div>
@@ -75,9 +80,10 @@ export default function Navbar() {
           className="md:hidden absolute top-20 left-0 right-0 bg-[#0a0a0f] border-b border-white/10 p-6 flex flex-col gap-4"
         >
           {[
-            { name: 'Voice Agents', href: '#voice-agents' },
-            { name: 'WhatsApp Agents', href: '#whatsapp-agents' },
-            { name: 'Pricing', href: '#pricing' }
+            { name: 'Voice Agents', href: '/#voice-agents' },
+            { name: 'WhatsApp Agents', href: '/#whatsapp-agents' },
+            { name: 'Pricing', href: '/#pricing' },
+            { name: 'Live Demo', href: '/demo' }
           ].map((item) => (
             <a
               key={item.name}
